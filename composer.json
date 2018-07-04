@@ -1,0 +1,33 @@
+{
+    "name": "zm-dev/image_uploader",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "taoyu",
+            "email": "1255803549@qq.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "laravel/laravel": "^5.6",
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZMDev\\ImageUploader\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZMDev\\ImageUploader\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ZMDev\\ImageUploader\\ServiceProvider"
+            ]
+        }
+    }
+}

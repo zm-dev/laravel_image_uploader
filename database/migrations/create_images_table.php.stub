@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateImagesTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $tableName = config('image_uploader.table_name');
+
+        Schema::create($tableName, function (Blueprint $table) {
+            $table->char('hash', 32)->primary();
+            $table->string('format');
+            $table->string('title');
+            $table->unsignedMediumInteger('width');
+            $table->unsignedMediumInteger('height');
+            $table->timestampsTz();
+        });
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $tableName = config('permission.table_name');
+
+        Schema::drop($tableName);
+    }
+}
