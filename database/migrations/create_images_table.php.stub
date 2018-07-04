@@ -33,7 +33,7 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        $tableName = config('permission.table_name');
+        $tableName = config('image_uploader.table_name');
 
         Schema::drop($tableName);
     }
