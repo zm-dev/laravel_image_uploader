@@ -18,7 +18,7 @@ class LaravelFSUploader extends Uploader
         $this->disk = $disk;
     }
 
-    public function Upload($file)
+    public function upload($file)
     {
         /**
          * @var $file UploadedFile

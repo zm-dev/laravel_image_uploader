@@ -4,5 +4,5 @@ namespace ZMDev\ImageUploader;
 
 
 interface IUploader{
-    function Upload($file);
+    function upload($file);
 }
