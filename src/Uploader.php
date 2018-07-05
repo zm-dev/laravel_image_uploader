@@ -17,7 +17,8 @@ abstract class Uploader implements IUploader
     {
         if ($this->isUrl($file)) {
             $tempFile = $this->createTempFileFromUrl($file);
-            \
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $tempFile);
             finfo_close($finfo);
             $file = new UploadedFile($tempFile, pathinfo($file, PATHINFO_BASENAME), mime_content_type($tempFile), $mime);
         }
