@@ -26,7 +26,7 @@ class ImageproxyURL implements IURL
         $this->omitBaseURL = $omitBaseURL;
     }
 
-    public function Generate($hashValue, Closure ... $optCallbacks)
+    public function generate($hashValue, Closure ... $optCallbacks)
     {
         $defaultOpt = new Option(null, null, null, null, 90);
         foreach ($optCallbacks as $optCallback) {

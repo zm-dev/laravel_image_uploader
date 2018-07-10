@@ -7,5 +7,5 @@ use Closure;
 
 interface IURL
 {
-    function Generate($hashValue, Closure ...$optCallbacks);
+    function generate($hashValue, Closure ...$optCallbacks);
 }
