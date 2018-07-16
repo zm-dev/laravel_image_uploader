@@ -20,14 +20,18 @@ abstract class Uploader implements IUploader
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mime = finfo_file($finfo, $tempFile);
             finfo_close($finfo);
-            $file = new UploadedFile($tempFile, pathinfo($file, PATHINFO_BASENAME), mime_content_type($tempFile), $mime);
+            $originName = preg_replace('/\W/', '', pathinfo($file, PATHINFO_BASENAME));
+            if ($originName == '') {
+                $originName = str_random();
+            }
+            $file = new UploadedFile($tempFile, $originName, $mime, null, true);
         }
 
         /**
          * @var $file UploadedFile
          */
-        if (is_null($file) || !$file->isValid()) {
-            $error = $file ? $file->getErrorMessage() : '图片上传失败';
+        if (!($file instanceof UploadedFile) || !$file->isValid()) {
+            $error = $file instanceof UploadedFile ? $file->getErrorMessage() : '图片上传失败';
             throw new ImageUploaderException($error);
         }
 
@@ -65,7 +69,7 @@ abstract class Uploader implements IUploader
         return (bool)filter_var($url, FILTER_VALIDATE_URL);
     }
 
-    protected function storeToDB($hashValue, $mime, $name,\SplFileInfo $fileInfo)
+    protected function storeToDB($hashValue, $mime, $name, \SplFileInfo $fileInfo)
     {
         list($width, $height) = getimagesize($fileInfo->getRealPath());
         return Image::create([

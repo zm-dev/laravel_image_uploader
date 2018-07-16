@@ -60,7 +60,7 @@ class TestCase extends IlluminateTestCase
             __DIR__ . '/../tests/create_images_table.php'
         );
         $fileSystem->requireOnce(__DIR__ . '/../tests/create_images_table.php');
-        (new \CreateImagesTables())->up();
+        (new \CreateImagesTable())->up();
     }
 
     public function tearDown()
