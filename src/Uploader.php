@@ -21,6 +21,7 @@ abstract class Uploader implements IUploader
             $mime = finfo_file($finfo, $tempFile);
             finfo_close($finfo);
             $originName = preg_replace('/\W/', '', pathinfo($file, PATHINFO_BASENAME));
+            $originName = str_limit($originName, 100, '');
             if ($originName == '') {
                 $originName = str_random();
             }
