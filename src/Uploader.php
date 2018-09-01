@@ -45,21 +45,19 @@ abstract class Uploader implements IUploader
 
     private function createTempFileFromUrl($url)
     {
-        $options = [
-            'http' => [
-                'method' => "GET",
-                'header' => "Accept-language: en\r\n" .
-                    "User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2\r\n"
-            ]
-        ];
-
-        $context = stream_context_create($options);
-
         $tempName = tempnam(sys_get_temp_dir(), config('app.name'));
         if (!$tempName) {
             throw new ImageUploaderException('临时文件创建失败');
         }
-        if ($data = @file_get_contents($url, false, $context)) {
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        if ($data) {
             @file_put_contents($tempName, $data);
         }
         return $tempName;
